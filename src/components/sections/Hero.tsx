@@ -50,7 +50,7 @@ export function Hero({ ready }: { ready: boolean }) {
 
         <h1 className="font-display mt-8 text-[clamp(2.6rem,8.5vw,7.5rem)] font-semibold leading-[0.98] tracking-tight">
           {hero.headline.map((line, i) => (
-            <span key={i} className="block overflow-hidden pb-[0.08em] -mb-[0.08em]">
+            <span key={i} className="block overflow-hidden pb-[0.15em] -mb-[0.15em]">
               <motion.span
                 className="block will-change-transform"
                 initial={reduced ? { opacity: 0 } : { y: "115%" }}

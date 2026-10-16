@@ -13,6 +13,7 @@ npm install
 npm run dev      # local dev server
 npm run build    # type-check + production build (dist/)
 npm run preview  # preview the production build
+npm run smoke    # runtime smoke test: renders the built site and clicks through it
 ```
 
 The site is **not deployed** — that's a separate step when you're ready.

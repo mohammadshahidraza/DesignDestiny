@@ -27,7 +27,7 @@ export function MaskedLine({ children, delay = 0, className, mode = "view", play
   const view = mode === "view" ? { whileInView: shown, viewport: { once: true, amount: 0.5 } } : {}
 
   return (
-    <span className={`block overflow-hidden pb-[0.12em] -mb-[0.12em] ${className ?? ""}`}>
+    <span className={`block overflow-hidden pb-[0.15em] -mb-[0.15em] ${className ?? ""}`}>
       <motion.span
         className="block will-change-transform"
         initial={hidden}
