@@ -1,0 +1,23 @@
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes drift {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  to {
+    transform: translate3d(-6%, 9%, 0) scale(1.14);
+  }
+}
+
+@keyframes scroll-line {
+  0% {
+    transform: translateY(-130%);
+  }
+  100% {
+    transform: translateY(330%);
+  }
+}

@@ -1,0 +1,129 @@
+/* ---------------------------------------------------------------------------
+   Buttons — sweep-fill hover interactions
+--------------------------------------------------------------------------- */
+.btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6em;
+  padding: 0.95em 1.7em;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 0.01em;
+  overflow: hidden;
+  isolation: isolate;
+  cursor: pointer;
+  transition:
+    color 0.4s var(--ease-expo),
+    border-color 0.4s var(--ease-expo);
+}
+.btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.55s var(--ease-expo);
+}
+.btn:hover::after,
+.btn:focus-visible::after {
+  transform: scaleX(1);
+}
+.btn-primary {
+  background: var(--color-amber);
+  color: #000;
+}
+.btn-primary::after {
+  background: #fff;
+}
+.btn-ghost {
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  color: #fff;
+}
+.btn-ghost::after {
+  background: var(--color-amber);
+}
+.btn-ghost:hover,
+.btn-ghost:focus-visible {
+  color: #000;
+  border-color: var(--color-amber);
+}
+.btn .btn-arrow {
+  transition: transform 0.4s var(--ease-expo);
+}
+.btn:hover .btn-arrow {
+  transform: translate(3px, -3px);
+}
+
+/* ---------------------------------------------------------------------------
+   Text links — underline sweep
+--------------------------------------------------------------------------- */
+.link-sweep {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+}
+.link-sweep::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  height: 1px;
+  width: 100%;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right center;
+  transition: transform 0.5s var(--ease-expo);
+}
+.link-sweep:hover::after,
+.link-sweep:focus-visible::after {
+  transform: scaleX(1);
+  transform-origin: left center;
+}
+
+/* ---------------------------------------------------------------------------
+   Marquee
+--------------------------------------------------------------------------- */
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation-name: marquee;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  will-change: transform;
+}
+.marquee-chunk {
+  display: flex;
+  flex: none;
+  align-items: center;
+}
+
+/* ---------------------------------------------------------------------------
+   Film grain overlay
+--------------------------------------------------------------------------- */
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: 110;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: soft-light;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 240px 240px;
+}
+
+/* ---------------------------------------------------------------------------
+   Ambient glow orbs
+--------------------------------------------------------------------------- */
+.glow-orb {
+  position: absolute;
+  border-radius: 9999px;
+  pointer-events: none;
+  background: radial-gradient(circle at center, rgba(246, 177, 37, 0.2), transparent 70%);
+  filter: blur(60px);
+  animation: drift 16s ease-in-out infinite alternate;
+}

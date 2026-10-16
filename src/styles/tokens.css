@@ -1,0 +1,16 @@
+/* ---------------------------------------------------------------------------
+   Design Destiny — brand tokens
+   The three brand colours are fixed: pure black, golden amber, white.
+   Do not introduce unrelated accent colours.
+--------------------------------------------------------------------------- */
+@theme {
+  --color-ink: #000000;
+  --color-amber: #f6b125;
+  --color-paper: #ffffff;
+
+  --font-display: "Clash Display", "Satoshi", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Satoshi", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-soft: cubic-bezier(0.33, 1, 0.68, 1);
+}
