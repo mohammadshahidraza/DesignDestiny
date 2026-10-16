@@ -8,7 +8,7 @@ export const siteConfig = {
   name: "Design Destiny",
 
   /** WhatsApp number in international format, digits only. Example: "919876543210" */
-  whatsappNumber: "",
+  whatsappNumber: "923155751115", // your 0315 5751115 → wa.me/923155751115
   whatsappMessage: "Hi Design Destiny! I'd like to discuss a design project.",
 
   /** Your email address. Example: "hello@yourdomain.com" */
