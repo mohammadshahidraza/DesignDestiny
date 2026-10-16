@@ -1,0 +1,72 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="glow" cx="0.78" cy="0.32" r="0.65">
+      <stop offset="0%" stop-color="#F6B125" stop-opacity="0.20" />
+      <stop offset="100%" stop-color="#F6B125" stop-opacity="0" />
+    </radialGradient>
+    <radialGradient id="glow2" cx="0.1" cy="1" r="0.5">
+      <stop offset="0%" stop-color="#F6B125" stop-opacity="0.10" />
+      <stop offset="100%" stop-color="#F6B125" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="#000000" />
+  <rect width="1200" height="630" fill="url(#glow)" />
+  <rect width="1200" height="630" fill="url(#glow2)" />
+
+  <rect x="44" y="44" width="1112" height="542" fill="none" stroke="#ffffff" stroke-opacity="0.14" stroke-width="1" />
+
+  <g transform="translate(806 130) scale(3.2)">
+    <path
+      d="M40 118 V22 H66 A48 48 0 0 1 66 118 H40"
+      fill="none"
+      stroke="#F6B125"
+      stroke-width="7"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+  </g>
+
+  <text
+    x="120"
+    y="196"
+    font-family="Clash Display, Segoe UI, Arial, sans-serif"
+    font-size="17"
+    font-weight="600"
+    letter-spacing="7"
+    fill="#F6B125"
+  >
+    GRAPHIC DESIGN PORTFOLIO
+  </text>
+
+  <text x="120" y="318" font-family="Clash Display, Segoe UI, Arial, sans-serif" font-size="86" font-weight="600" letter-spacing="-1">
+    <tspan fill="#FFFFFF">Design </tspan><tspan fill="#F6B125">Destiny</tspan>
+  </text>
+
+  <text
+    x="120"
+    y="384"
+    font-family="Clash Display, Segoe UI, Arial, sans-serif"
+    font-size="27"
+    fill="#ffffff"
+    fill-opacity="0.62"
+  >
+    Bold identities, striking visuals and brands impossible to ignore.
+  </text>
+
+  <line x1="120" y1="452" x2="780" y2="452" stroke="#ffffff" stroke-opacity="0.16" />
+
+  <text
+    x="120"
+    y="510"
+    font-family="Clash Display, Segoe UI, Arial, sans-serif"
+    font-size="18"
+    letter-spacing="4"
+    fill="#ffffff"
+    fill-opacity="0.42"
+  >
+    BRAND IDENTITY   ·   LOGO DESIGN   ·   SOCIAL MEDIA   ·   POSTERS &amp; ADS
+  </text>
+
+  <circle cx="1130" cy="530" r="6" fill="#F6B125" />
+</svg>

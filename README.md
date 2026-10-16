@@ -14,7 +14,11 @@ npm run dev      # local dev server
 npm run build    # type-check + production build (dist/)
 npm run preview  # preview the production build
 npm run smoke    # runtime smoke test: renders the built site and clicks through it
+npm run assets   # regenerate social share image + touch icon from their SVG sources
 ```
+
+No terminal? **Double-click `start-site.bat`** — it starts the site and opens
+your browser automatically.
 
 The site is **not deployed** — that's a separate step when you're ready.
 
@@ -79,6 +83,13 @@ Replace the clearly-labelled sample projects in `src/data/projects.ts`. Each pro
 Covers are drawn as in-brand SVG compositions (`src/components/ui/CoverArt.tsx`) — no
 image files needed. Until you swap them, every card and detail view is clearly
 marked as a **sample project** (no real client is ever implied).
+
+### 5. Social share image
+
+`public/og-image.png` is the preview card shown whenever the site link is shared
+(WhatsApp, Facebook, X, LinkedIn…). Edit `public/og.svg` and run `npm run assets`
+to regenerate it. After deploying, switch the `og:image` URLs in `index.html` to
+absolute URLs (e.g. `https://yourdomain.com/og-image.png`).
 
 ## Structure
 
