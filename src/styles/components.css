@@ -9,7 +9,8 @@
   gap: 0.6em;
   padding: 0.95em 1.7em;
   border-radius: 999px;
-  font-weight: 600;
+  /* Satoshi ships 400 / 500 / 700 — 700 is the exact face used here. */
+  font-weight: 700;
   font-size: 0.95rem;
   letter-spacing: 0.01em;
   overflow: hidden;

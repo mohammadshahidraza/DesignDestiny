@@ -36,10 +36,14 @@ export function ProjectCard({ project, index, wide, onOpen, ref }: Props) {
   return (
     <motion.article
       ref={ref}
-      layout
-      initial={{ opacity: 0, y: 44 }}
+      layout={!reduced}
+      initial={reduced ? { opacity: 0 } : { opacity: 0, y: 44 }}
       whileInView={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, scale: 0.96, transition: { duration: 0.25, ease: EASE } }}
+      exit={
+        reduced
+          ? { opacity: 0, transition: { duration: 0.25, ease: EASE } }
+          : { opacity: 0, scale: 0.96, transition: { duration: 0.25, ease: EASE } }
+      }
       viewport={{ once: true, amount: 0.15 }}
       transition={{ duration: 0.85, delay: (index % 3) * 0.08, ease: EASE }}
       className={`group relative col-span-12 ${wide ? "md:col-span-7" : "md:col-span-5"}`}
@@ -58,7 +62,7 @@ export function ProjectCard({ project, index, wide, onOpen, ref }: Props) {
           className="relative"
         >
           <motion.div
-            layoutId={`cover-${project.id}`}
+            layoutId={reduced ? undefined : `cover-${project.id}`}
             className={`relative overflow-hidden rounded-xl ${wide ? "aspect-[16/11]" : "aspect-[4/5]"}`}
           >
             <div className="absolute inset-0 transition-transform duration-[1400ms] ease-expo group-hover:scale-[1.06]">

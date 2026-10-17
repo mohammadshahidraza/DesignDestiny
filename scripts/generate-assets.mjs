@@ -3,15 +3,28 @@
  * from their SVG sources, so they can be regenerated any time the design changes.
  *
  * Run:  npm run assets
+ *
+ * The social share image is rendered with the real Clash Display font files
+ * (scripts/fonts/, Fontshare Free License — see scripts/fonts/FFL.txt), so the
+ * preview card matches the site typography exactly.
  */
 import { readFileSync, writeFileSync } from "node:fs"
+import { fileURLToPath } from "node:url"
 import { Resvg } from "@resvg/resvg-js"
+
+const fontFiles = ["./fonts/ClashDisplay-Regular.otf", "./fonts/ClashDisplay-Semibold.otf"].map(
+  (p) => fileURLToPath(new URL(p, import.meta.url)),
+)
 
 function render(svgRel, outRel, width) {
   const svg = readFileSync(new URL(svgRel, import.meta.url), "utf8")
   const resvg = new Resvg(svg, {
     fitTo: { mode: "width", value: width },
-    font: { loadSystemFonts: true, defaultFontFamily: "Segoe UI" },
+    font: {
+      fontFiles,
+      loadSystemFonts: true,
+      defaultFontFamily: "Clash Display",
+    },
   })
   const png = resvg.render().asPng()
   writeFileSync(new URL(outRel, import.meta.url), png)

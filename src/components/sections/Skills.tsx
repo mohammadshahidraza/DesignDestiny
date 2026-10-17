@@ -2,6 +2,7 @@ import { useRef } from "react"
 import { motion, useInView } from "motion/react"
 import { skills } from "../../content/content"
 import { EASE } from "../../lib/motion"
+import { usePrefersReducedMotion } from "../../hooks/usePrefersReducedMotion"
 import { useCountUp } from "../../hooks/useCountUp"
 import { SectionHeading } from "../ui/SectionHeading"
 import { MaskedLine } from "../ui/MaskedLine"
@@ -18,7 +19,8 @@ function SkillBar({
   index: number
   start: boolean
 }) {
-  const count = useCountUp(value, start, 1.4)
+  const reduced = usePrefersReducedMotion()
+  const count = useCountUp(value, start, reduced ? 0 : 1.4)
 
   return (
     <div className="py-5">
@@ -31,7 +33,11 @@ function SkillBar({
           className="h-full origin-left rounded-full bg-amber"
           initial={{ scaleX: 0 }}
           animate={start ? { scaleX: 1 } : undefined}
-          transition={{ duration: 1.3, delay: 0.15 + index * 0.08, ease: EASE }}
+          transition={{
+            duration: reduced ? 0 : 1.3,
+            delay: reduced ? 0 : 0.15 + index * 0.08,
+            ease: EASE,
+          }}
           style={{ width: `${value}%` }}
         />
       </div>
@@ -42,6 +48,7 @@ function SkillBar({
 export function Skills() {
   const listRef = useRef<HTMLDivElement>(null)
   const inView = useInView(listRef, { once: true, amount: 0.35 })
+  const reduced = usePrefersReducedMotion()
 
   return (
     <section id="skills" className="section relative">
@@ -64,7 +71,7 @@ export function Skills() {
               {skills.tools.map((tool, i) => (
                 <motion.li
                   key={tool}
-                  initial={{ opacity: 0, scale: 0.9, y: 10 }}
+                  initial={reduced ? { opacity: 0 } : { opacity: 0, scale: 0.9, y: 10 }}
                   whileInView={{ opacity: 1, scale: 1, y: 0 }}
                   viewport={{ once: true, amount: 0.6 }}
                   transition={{ duration: 0.5, delay: i * 0.06, ease: EASE }}

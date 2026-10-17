@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react"
 import { AnimatePresence, motion } from "motion/react"
 import { categories, projects, type CategoryId, type Project } from "../../data/projects"
+import { usePrefersReducedMotion } from "../../hooks/usePrefersReducedMotion"
 import { SectionHeading } from "../ui/SectionHeading"
 import { Reveal } from "../ui/Reveal"
 import { ProjectCard } from "./ProjectCard"
@@ -10,6 +11,7 @@ export function Portfolio() {
   const [filter, setFilter] = useState<CategoryId | "all">("all")
   const [active, setActive] = useState<Project | null>(null)
   const openedRef = useRef(false)
+  const reduced = usePrefersReducedMotion()
 
   const filtered = filter === "all" ? projects : projects.filter((p) => p.category === filter)
 
@@ -39,6 +41,7 @@ export function Portfolio() {
 
   const close = () => {
     if (openedRef.current) {
+      openedRef.current = false // guard: a rapid double-close must not step back twice
       window.history.back() // popstate handler clears the overlay
     } else {
       window.history.replaceState(null, "", "#work")
@@ -86,9 +89,11 @@ export function Portfolio() {
                 >
                   {filter === c.id && (
                     <motion.span
-                      layoutId="filter-pill"
+                      layoutId={reduced ? undefined : "filter-pill"}
                       className="absolute inset-0 rounded-full bg-amber"
-                      transition={{ type: "spring", stiffness: 400, damping: 34 }}
+                      transition={
+                        reduced ? { duration: 0 } : { type: "spring", stiffness: 400, damping: 34 }
+                      }
                     />
                   )}
                   <span className="relative z-10">{c.label}</span>
@@ -98,8 +103,11 @@ export function Portfolio() {
           </Reveal>
         </div>
 
-        <motion.div layout className="mt-14 grid grid-cols-12 gap-x-4 gap-y-10 md:gap-x-6 md:gap-y-14">
-          <AnimatePresence mode="popLayout" initial={false}>
+        <motion.div
+          layout={!reduced}
+          className="mt-14 grid grid-cols-12 gap-x-4 gap-y-10 md:gap-x-6 md:gap-y-14"
+        >
+          <AnimatePresence mode="popLayout">
             {filtered.map((project, i) => (
               <ProjectCard
                 key={project.id}

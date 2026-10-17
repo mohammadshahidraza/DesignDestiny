@@ -1,11 +1,14 @@
 import { motion } from "motion/react"
 import { services } from "../../content/content"
 import { EASE } from "../../lib/motion"
+import { usePrefersReducedMotion } from "../../hooks/usePrefersReducedMotion"
 import { SectionHeading } from "../ui/SectionHeading"
 import { Reveal } from "../ui/Reveal"
 import { PlusIcon } from "../ui/Icons"
 
 export function Services() {
+  const reduced = usePrefersReducedMotion()
+
   return (
     <section id="services" className="section relative">
       <div className="shell">
@@ -28,7 +31,7 @@ export function Services() {
 
         <div className="mt-14">
           <motion.div
-            initial={{ scaleX: 0 }}
+            initial={{ scaleX: reduced ? 1 : 0 }}
             whileInView={{ scaleX: 1 }}
             viewport={{ once: true, amount: 0.8 }}
             transition={{ duration: 0.9, ease: EASE }}
@@ -63,7 +66,7 @@ export function Services() {
                 </div>
               </Reveal>
               <motion.div
-                initial={{ scaleX: 0 }}
+                initial={{ scaleX: reduced ? 1 : 0 }}
                 whileInView={{ scaleX: 1 }}
                 viewport={{ once: true, amount: 0.8 }}
                 transition={{ duration: 0.9, delay: i * 0.05, ease: EASE }}

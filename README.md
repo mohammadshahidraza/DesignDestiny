@@ -20,7 +20,8 @@ npm run assets   # regenerate social share image + touch icon from their SVG sou
 No terminal? **Double-click `start-site.bat`** — it starts the site and opens
 your browser automatically.
 
-The site is **not deployed** — that's a separate step when you're ready.
+The site is **not deployed yet** — push to GitHub, then import the repo on
+**Vercel** (it auto-detects Vite and re-deploys on every push).
 
 ## Make it yours
 
@@ -88,8 +89,10 @@ marked as a **sample project** (no real client is ever implied).
 
 `public/og-image.png` is the preview card shown whenever the site link is shared
 (WhatsApp, Facebook, X, LinkedIn…). Edit `public/og.svg` and run `npm run assets`
-to regenerate it. After deploying, switch the `og:image` URLs in `index.html` to
-absolute URLs (e.g. `https://yourdomain.com/og-image.png`).
+to regenerate it — the renderer uses the real Clash Display font files in
+`scripts/fonts/` (Fontshare Free License) so the card matches the site typography.
+After deploying, switch the `og:image` URLs in `index.html` to absolute URLs
+(e.g. `https://yourdomain.com/og-image.png`).
 
 ## Structure
 
@@ -105,13 +108,19 @@ src/
    ├─ ui/       Reveal · MaskedLine · Magnetic · Marquee · Button · CoverArt · …
    ├─ layout/   Preloader · Header · MobileMenu · Footer
    └─ sections/ Hero · About · Portfolio · ProjectCard · ProjectDetail · Services · Skills · Contact
+
+scripts/
+├─ smoke.mjs             runtime smoke test (npm run smoke)
+├─ generate-assets.mjs   OG image + touch icon renderer (npm run assets)
+└─ fonts/                Clash Display files for the OG renderer (FFL license)
 ```
 
 ## Motion & accessibility notes
 
 - The preloader plays once per browser session and is skipped for
   `prefers-reduced-motion` users; click or press any key to skip it.
-- Reduced-motion users get simple fades instead of parallax, magnetics and marquees.
+- Reduced-motion users get simple fades instead of parallax, magnetics, marquees
+  and sliding / morphing transitions.
 - All animation uses transform/opacity only, for smooth 60fps on mobile.
 
 ## Fonts

@@ -17,9 +17,16 @@ function useFieldState() {
   return { value, setValue, floated, onFocus, onBlur }
 }
 
-type Base = { id: string; name: string; label: string; required?: boolean }
+type Base = { id: string; name: string; label: string; required?: boolean; autoComplete?: string }
 
-export function InputField({ id, name, label, required, type = "text" }: Base & { type?: string }) {
+export function InputField({
+  id,
+  name,
+  label,
+  required,
+  autoComplete,
+  type = "text",
+}: Base & { type?: string }) {
   const { value, setValue, floated, onFocus, onBlur } = useFieldState()
   return (
     <div className="relative">
@@ -32,6 +39,7 @@ export function InputField({ id, name, label, required, type = "text" }: Base & 
         name={name}
         type={type}
         required={required}
+        autoComplete={autoComplete}
         value={value}
         onChange={(e) => setValue(e.target.value)}
         onFocus={onFocus}

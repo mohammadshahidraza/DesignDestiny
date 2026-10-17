@@ -110,7 +110,6 @@ export const contact = {
 }
 
 export const footer = {
-  blurb:
-    "Graphic design studio crafting bold brands, identities and visuals with intent.", // PLACEHOLDER
+  blurb: "Independent graphic design practice crafting bold brands, identities and visuals with intent.", // PLACEHOLDER
   marqueeWord: "Design Destiny",
 }

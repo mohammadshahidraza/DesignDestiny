@@ -158,8 +158,15 @@ export function Contact() {
             <Reveal delay={0.1} className="mt-8">
               <form key={formKey} onSubmit={onSubmit} className="space-y-8">
                 <div className="grid gap-8 sm:grid-cols-2">
-                  <InputField id="name" name="name" label="Your name" required />
-                  <InputField id="email" name="email" label="Email address" type="email" required />
+                  <InputField id="name" name="name" label="Your name" autoComplete="name" required />
+                  <InputField
+                    id="email"
+                    name="email"
+                    label="Email address"
+                    type="email"
+                    autoComplete="email"
+                    required
+                  />
                 </div>
                 <div className="grid gap-8 sm:grid-cols-2">
                   <SelectField

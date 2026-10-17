@@ -3,6 +3,7 @@ import { motion, useMotionValueEvent, useScroll, useSpring } from "motion/react"
 import { nav, sectionIds } from "../../content/content"
 import { scrollToId } from "../../lib/scroll"
 import { useScrollSpy } from "../../hooks/useScrollSpy"
+import { usePrefersReducedMotion } from "../../hooks/usePrefersReducedMotion"
 import { EASE } from "../../lib/motion"
 import { TextLogo } from "../ui/TextLogo"
 import { Button } from "../ui/Button"
@@ -16,6 +17,7 @@ export function Header() {
   const [hidden, setHidden] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const active = useScrollSpy(sectionIds)
+  const reduced = usePrefersReducedMotion()
 
   useMotionValueEvent(scrollY, "change", (y) => {
     const prev = scrollY.getPrevious() ?? 0
@@ -27,7 +29,7 @@ export function Header() {
     <>
       <motion.header
         className="fixed inset-x-0 top-0 z-[80]"
-        animate={{ y: hidden ? "-110%" : "0%" }}
+        animate={{ y: hidden && !reduced ? "-110%" : "0%" }}
         transition={{ duration: 0.5, ease: EASE }}
       >
         <div

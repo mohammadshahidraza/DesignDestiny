@@ -39,7 +39,7 @@ export function Hero({ ready }: { ready: boolean }) {
         className="shell relative z-10 pb-16 pt-28 md:pt-32"
       >
         <motion.p
-          initial={{ opacity: 0, y: 16 }}
+          initial={reduced ? { opacity: 0 } : { opacity: 0, y: 16 }}
           animate={ready ? { opacity: 1, y: 0 } : undefined}
           transition={{ delay: 0.15, duration: 0.8, ease: EASE }}
           className="flex items-center gap-4 text-[11px] uppercase tracking-[0.35em] text-white/55 md:text-xs"
@@ -72,7 +72,7 @@ export function Hero({ ready }: { ready: boolean }) {
         </h1>
 
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
+          initial={reduced ? { opacity: 0 } : { opacity: 0, y: 24 }}
           animate={ready ? { opacity: 1, y: 0 } : undefined}
           transition={{ delay: 0.75, duration: 0.9, ease: EASE }}
           className="mt-8"

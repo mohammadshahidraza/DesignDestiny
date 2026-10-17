@@ -13,7 +13,9 @@ export function Footer() {
     {
       icon: WhatsAppIcon,
       label: "WhatsApp",
-      href: siteConfig.whatsappNumber ? `https://wa.me/${siteConfig.whatsappNumber}` : "",
+      href: siteConfig.whatsappNumber
+        ? `https://wa.me/${siteConfig.whatsappNumber}?text=${encodeURIComponent(siteConfig.whatsappMessage)}`
+        : "",
     },
     {
       icon: MailIcon,

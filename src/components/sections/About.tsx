@@ -10,7 +10,8 @@ import { Reveal } from "../ui/Reveal"
 function Stat({ value, suffix, label, delay }: { value: number; suffix: string; label: string; delay: number }) {
   const ref = useRef<HTMLDivElement>(null)
   const inView = useInView(ref, { once: true, amount: 0.6 })
-  const count = useCountUp(value, inView)
+  const reduced = usePrefersReducedMotion()
+  const count = useCountUp(value, inView, reduced ? 0 : 1.6)
 
   return (
     <Reveal delay={delay}>

@@ -4,6 +4,7 @@ import { nav } from "../../content/content"
 import { siteConfig } from "../../config/site.config"
 import { scrollToId, startScroll, stopScroll } from "../../lib/scroll"
 import { EASE } from "../../lib/motion"
+import { usePrefersReducedMotion } from "../../hooks/usePrefersReducedMotion"
 import {
   BehanceIcon,
   CloseIcon,
@@ -16,6 +17,7 @@ type Props = { open: boolean; onClose: () => void }
 
 export function MobileMenu({ open, onClose }: Props) {
   const containerRef = useRef<HTMLDivElement>(null)
+  const reduced = usePrefersReducedMotion()
 
   useEffect(() => {
     if (open) stopScroll()
@@ -54,7 +56,9 @@ export function MobileMenu({ open, onClose }: Props) {
     {
       icon: WhatsAppIcon,
       label: "WhatsApp",
-      href: siteConfig.whatsappNumber ? `https://wa.me/${siteConfig.whatsappNumber}` : "",
+      href: siteConfig.whatsappNumber
+        ? `https://wa.me/${siteConfig.whatsappNumber}?text=${encodeURIComponent(siteConfig.whatsappMessage)}`
+        : "",
     },
     { icon: MailIcon, label: "Email", href: siteConfig.email ? `mailto:${siteConfig.email}` : "" },
     { icon: InstagramIcon, label: "Instagram", href: siteConfig.instagramUrl },
@@ -67,9 +71,9 @@ export function MobileMenu({ open, onClose }: Props) {
         <motion.div
           ref={containerRef}
           className="fixed inset-0 z-[70] lg:hidden"
-          initial={{ clipPath: "inset(0 0 100% 0)" }}
-          animate={{ clipPath: "inset(0 0 0% 0)" }}
-          exit={{ clipPath: "inset(0 0 100% 0)" }}
+          initial={reduced ? { opacity: 0 } : { clipPath: "inset(0 0 100% 0)" }}
+          animate={reduced ? { opacity: 1 } : { clipPath: "inset(0 0 0% 0)" }}
+          exit={reduced ? { opacity: 0 } : { clipPath: "inset(0 0 100% 0)" }}
           transition={{ duration: 0.6, ease: EASE }}
           role="dialog"
           aria-modal="true"
@@ -92,7 +96,7 @@ export function MobileMenu({ open, onClose }: Props) {
                 <motion.button
                   key={item.id}
                   type="button"
-                  initial={{ y: 44, opacity: 0 }}
+                  initial={reduced ? { opacity: 0 } : { y: 44, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ delay: 0.18 + i * 0.07, duration: 0.6, ease: EASE }}
                   onClick={() => {

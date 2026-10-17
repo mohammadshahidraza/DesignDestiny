@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react"
 import { AnimatePresence, motion } from "motion/react"
 import { categoryLabel, getNextProject, type Project } from "../../data/projects"
+import { usePrefersReducedMotion } from "../../hooks/usePrefersReducedMotion"
 import { startScroll, stopScroll } from "../../lib/scroll"
 import { EASE } from "../../lib/motion"
 import { CoverArt } from "../ui/CoverArt"
@@ -16,24 +17,49 @@ type Props = {
 export function ProjectDetail({ project, onClose, onNext }: Props) {
   const scrollRef = useRef<HTMLDivElement>(null)
   const closeRef = useRef<HTMLButtonElement>(null)
+  const rootRef = useRef<HTMLDivElement>(null)
+  const previousFocusRef = useRef<HTMLElement | null>(null)
+  const reduced = usePrefersReducedMotion()
   const onCloseRef = useRef(onClose)
   onCloseRef.current = onClose
 
   useEffect(() => {
+    previousFocusRef.current = document.activeElement as HTMLElement | null
     stopScroll()
     closeRef.current?.focus()
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onCloseRef.current()
+      if (e.key === "Escape") {
+        onCloseRef.current()
+        return
+      }
+      /* Keep keyboard focus inside the dialog while it is open. */
+      if (e.key === "Tab") {
+        const focusables = rootRef.current?.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), input, select, textarea, [tabindex]:not([tabindex="-1"])',
+        )
+        if (!focusables || focusables.length === 0) return
+        const first = focusables[0]
+        const last = focusables[focusables.length - 1]
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault()
+          last.focus()
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault()
+          first.focus()
+        }
+      }
     }
     window.addEventListener("keydown", onKey)
     return () => {
       window.removeEventListener("keydown", onKey)
       startScroll()
+      previousFocusRef.current?.focus() // hand focus back to the card that opened it
     }
   }, [])
 
   useEffect(() => {
     scrollRef.current?.scrollTo({ top: 0 })
+    closeRef.current?.focus() // keeps the keyboard flow sane after "Next project"
   }, [project.id])
 
   const nextProject = getNextProject(project)
@@ -47,6 +73,7 @@ export function ProjectDetail({ project, onClose, onNext }: Props) {
 
   return (
     <motion.div
+      ref={rootRef}
       className="fixed inset-0 z-[90]"
       role="dialog"
       aria-modal="true"
@@ -70,16 +97,24 @@ export function ProjectDetail({ project, onClose, onNext }: Props) {
           <AnimatePresence mode="wait" initial={false}>
             <motion.div
               key={project.id}
-              initial={{ opacity: 0, y: 26 }}
+              initial={reduced ? { opacity: 0 } : { opacity: 0, y: 26 }}
               animate={{
                 opacity: 1,
                 y: 0,
-                transition: { duration: 0.6, delay: 0.28, ease: EASE },
+                transition: {
+                  duration: reduced ? 0 : 0.6,
+                  delay: reduced ? 0 : 0.28,
+                  ease: EASE,
+                },
               }}
-              exit={{ opacity: 0, y: -18, transition: { duration: 0.25, ease: EASE } }}
+              exit={{
+                opacity: 0,
+                ...(reduced ? {} : { y: -18 }),
+                transition: { duration: 0.25, ease: EASE },
+              }}
             >
               <motion.div
-                layoutId={`cover-${project.id}`}
+                layoutId={reduced ? undefined : `cover-${project.id}`}
                 className="relative aspect-[16/10] overflow-hidden rounded-xl"
               >
                 <CoverArt
